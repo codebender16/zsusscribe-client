@@ -7,6 +7,17 @@ const userBuilder = build('User', {
   }
 })
 
+const subscriptionBuilder = build('Subscription', {
+  fields: {
+    name: fake((f) => f.company.companyName()),
+    payment_amount: fake((f) => f.finance.amount()),
+    payment_date: fake((f) => f.date.future()),
+    reminder: `${Math.floor(Math.random() * 30)} days`,
+    expiry_date: fake((f) => f.date.future())
+  }
+})
+
 export {
-  userBuilder
+  userBuilder,
+  subscriptionBuilder
 }

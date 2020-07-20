@@ -9,10 +9,12 @@ Cypress.Commands.add("typeInLoginCredentials", (email, password) => {
   cy.findByLabelText(/password/i).type(password)
 })
 
-Cypress.Commands.add("typeInSubscriptionDetails", (title, url, description) => {
-  cy.findByLabelText(/Title/).type(title);
-  cy.findByLabelText(/Url/).type(url);
-  cy.findByLabelText(/Description/).type(description);
+Cypress.Commands.add("typeInSubscriptionDetails", (name, payment_amount, payment_date, reminder, expiry_date ) => {
+  cy.findByLabelText(/Name/).type(name);
+  cy.findByLabelText(/Payment Amount/).type(payment_amount);
+  cy.findByLabelText(/Payment Date/).type(payment_date);
+  cy.findByLabelText(/Reminder/).type(reminder);
+  cy.findByLabelText(/Expiry Date/).type(expiry_date);
 })
 
 Cypress.Commands.add("login", (email, password) => {
