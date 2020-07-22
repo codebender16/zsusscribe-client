@@ -9,13 +9,18 @@ import NoMatch from './NoMatch'
 import CreateSubscription from "./CreateSubscription";
 import EditSubscription from "./EditSubscription";
 import Subscription from "./Subscription"
+import { SubscriptionsContext, dispatch } from '../context/subscriptions-context'
 
 class App extends React.Component {
+
+  state = { subscriptions: [], dispatch: dispatch.bind(this) }
+  
   render() {
     return (
       <>
+      {/* {console.log(this.state)} */}
+        <SubscriptionsContext.Provider value={this.state}>
         <NavBar />
-        <body className="bg-gray-100">
         <div className="px-8 py-12 max-w-md mx-auto">
         <Switch>
           <ProtectedRoute exact path="/subscriptions/:id/edit" component={EditSubscription} />
@@ -27,7 +32,7 @@ class App extends React.Component {
           <Route component={NoMatch} />
         </Switch>
         </div>
-        </body>
+        </SubscriptionsContext.Provider>
       </>
     );
   }

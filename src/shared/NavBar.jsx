@@ -1,26 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import React from 'react'
+import { SubscriptionsContext } from "../context/subscriptions-context";
+import SignedInNavBar from './SignedInNavBar'
+import SignedOutNavBar from './SignedOutNavBar'
 
-const NavBar = () => {
-  const history = useHistory();
 
-  return (
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/sign-up">Sign Up</Link>
-      <Link to="/secrets">Secrets</Link>
-      <span
-        onClick={() => {
-          localStorage.removeItem("token");
-          history.push("/login");
-        }}
-      >
-        Logout
-      </span>
-    </nav>
-  );
+class NavBar extends React.Component {
+
+  static contextType = SubscriptionsContext
+
+  render() {
+    return (
+      <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
+        {console.log(this.context.currentUser)}
+        {this.context.currentUser || sessionStorage.getItem("auth") ? (
+          <SignedInNavBar history={this.props.history} context={this.context} />
+        ) : (
+          <SignedOutNavBar />
+        )}
+      </nav>
+    )
+  }
 };
 
 export default NavBar;
