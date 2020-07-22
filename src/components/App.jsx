@@ -15,6 +15,8 @@ class App extends React.Component {
     return (
       <>
         <NavBar />
+        <body className="bg-gray-100">
+        <div className="px-8 py-12 max-w-md mx-auto">
         <Switch>
           <ProtectedRoute exact path="/subscriptions/:id/edit" component={EditSubscription} />
           <ProtectedRoute exact path="/subscriptions/create" component={CreateSubscription} />
@@ -24,6 +26,8 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           <Route component={NoMatch} />
         </Switch>
+        </div>
+        </body>
       </>
     );
   }
