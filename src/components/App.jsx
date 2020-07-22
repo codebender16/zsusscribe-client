@@ -1,5 +1,5 @@
 import React from 'react';
-import ProtectedRoute from './components/ProtectedRoute'
+import ProtectedRoute from './ProtectedRoute'
 import NavBar from '../shared/NavBar'
 import { Route, Switch } from "react-router-dom";
 import Login from './Login'
