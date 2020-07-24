@@ -6,6 +6,13 @@ import NoSubscriptions from "./NoSubscriptions";
 
 class Subscriptions extends React.Component {
   static contextType = SubscriptionsContext;
+  state = { search: ""};
+
+  onInputChange = (event) => {
+    this.setState({
+      search: event.target.value
+    })
+  }
 
   deleteSubscription = async (id) => {
     this.context.dispatch("delete", id);
@@ -35,12 +42,26 @@ class Subscriptions extends React.Component {
 
   render() {
     const { subscriptions } = this.context;
-    return subscriptions.length === 0 ? (
+    const filteredSubscriptions = subscriptions.filter(subscription => {
+      return subscription.name.toLowerCase().includes(this.state.search)
+    })
+    return (
+      subscriptions.length === 0 ? (
       <NoSubscriptions />
     ) : (
-      this.renderSubscriptions(subscriptions)
-    );
-  }
+      <>
+        <label htmlFor="search">Search</label>
+        <input 
+          type="text" 
+          name="search-bar"
+          id='search'
+          onChange={this.onInputChange}
+        />
+        {this.renderSubscriptions(filteredSubscriptions)}
+      </>
+    )
+    )}
+    
 }
 
 export default Subscriptions;

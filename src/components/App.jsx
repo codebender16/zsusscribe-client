@@ -18,7 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <>
-      {console.log(this.state)}
+      {/* {console.log(this.state)} */}
         <SubscriptionsContext.Provider value={this.state}>
         <Route component={NavBar} />
           <div className="px-8 py-12 max-w-md mx-auto">
