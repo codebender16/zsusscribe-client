@@ -6,11 +6,19 @@ import NoSubscriptions from "./NoSubscriptions";
 
 class Subscriptions extends React.Component {
   static contextType = SubscriptionsContext;
-  state = { search: ""};
+  state = { search: "", category: ""};
 
   onInputChange = (event) => {
     this.setState({
-      search: event.target.value
+      search: event.target.value,
+      category: ""
+    })
+  }
+
+  onSelectCategory = (event) => {
+    this.setState({
+      search: "",
+      category: event.target.value
     })
   }
 
@@ -42,22 +50,32 @@ class Subscriptions extends React.Component {
 
   render() {
     const { subscriptions } = this.context;
-    const filteredSubscriptions = subscriptions.filter(subscription => {
+    console.log(subscriptions)
+    const filteredSubscriptionsByName = subscriptions.filter(subscription => {
       return subscription.name.toLowerCase().includes(this.state.search)
     })
+    // const filteredSubscriptionsByCategory = subscriptions.filter(subscription => {
+    //   return subscription.category_id.name.toLowerCase().includes
+    // })
     return (
       subscriptions.length === 0 ? (
       <NoSubscriptions />
     ) : (
       <>
-        <label htmlFor="search">Search</label>
+        <label htmlFor="search-by-name">Search</label>
         <input 
           type="text" 
           name="search-bar"
           id='search'
           onChange={this.onInputChange}
         />
-        {this.renderSubscriptions(filteredSubscriptions)}
+        <label htmlFor="filter-by-category">Filter By:</label>
+        <select onChange={this.onSelectCategory}>
+          <option value="category">Category</option>
+          <option value="entertainment">entertainment</option>
+          <option value="games">games</option>
+        </select>
+        {this.renderSubscriptions(filteredSubscriptionsByName)}
       </>
     )
     )}
