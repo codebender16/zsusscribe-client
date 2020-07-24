@@ -11,8 +11,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
-        {console.log(this.context.currentUser)}
-        {this.context.currentUser || sessionStorage.getItem("auth") ? (
+        {sessionStorage.getItem("auth") ? (
           <SignedInNavBar history={this.props.history} context={this.context} />
         ) : (
           <SignedOutNavBar />
