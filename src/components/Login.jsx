@@ -1,8 +1,9 @@
 import React from "react";
+import { SubscriptionsContext } from "../context/subscriptions-context";
 
 class Login extends React.Component {
+  static contextType = SubscriptionsContext;
   state = { email: "", password: "", errMessage: "" };
-  // have to set up Context later on
   
   onInputChange = (event) => {
     const key = event.target.id;
@@ -31,7 +32,12 @@ class Login extends React.Component {
       } else {
         const { jwt } = await response.json();
         localStorage.setItem("token", jwt);
+<<<<<<< HEAD
         this.props.history.push("/subscriptions");
+=======
+        sessionStorage.setItem("auth", true);
+        this.props.history.push("/");
+>>>>>>> 6fe0d90e19e070ebaacb31fed9c1468e030b3427
       }
     } catch (err) {
       console.log(err)

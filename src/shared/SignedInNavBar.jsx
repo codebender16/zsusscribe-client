@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const handleLogout = (props) => {
+  console.log(props)
   localStorage.removeItem("token");
   sessionStorage.removeItem("auth");
   props.context.dispatch("logout");
@@ -22,7 +23,6 @@ const SignedInNavBar = (props) => (
       <span onClick={() => handleLogout(props)}>
         Logout
       </span>
-      <Link to="/profile">Profile</Link>
     </div>
   </>
 );
