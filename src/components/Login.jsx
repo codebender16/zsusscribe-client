@@ -32,12 +32,8 @@ class Login extends React.Component {
       } else {
         const { jwt } = await response.json();
         localStorage.setItem("token", jwt);
-<<<<<<< HEAD
-        this.props.history.push("/subscriptions");
-=======
         sessionStorage.setItem("auth", true);
         this.props.history.push("/");
->>>>>>> 6fe0d90e19e070ebaacb31fed9c1468e030b3427
       }
     } catch (err) {
       console.log(err)
