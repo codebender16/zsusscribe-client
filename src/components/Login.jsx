@@ -19,6 +19,7 @@ class Login extends React.Component {
       auth: { email, password },
     };
     try {
+      console.log(process.env.REACT_APP_BACKEND_URL);
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
         method: "POST",
         headers: {

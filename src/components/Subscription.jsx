@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 import { Link } from "react-router-dom";
-// import moment from "moment";
-import { SubscriptionsContext } from "../context/subscriptions-context";
+// import moment from 'moment'
+import { SubscriptionsContext } from '../context/subscriptions-context'
 import NoSubscriptions from "./NoSubscriptions";
 
 class Subscriptions extends React.Component {
@@ -50,29 +50,31 @@ class Subscriptions extends React.Component {
   }
 
   deleteSubscription = async (id) => {
-    this.context.dispatch("delete", id);
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/subscriptions/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-  };
+      this.context.dispatch("delete", id)
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/subscriptions/${id}`, {
+        method: "DELETE",
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+    };
 
   renderSubscriptions = (subscriptions) => {
-    return subscriptions.map((subscription, index) => {
+      return subscriptions.map((subscription, index) => {
       return (
-        <div key={index}>
+          <div key={index} className="subscription">
           <h3>{subscription.name}</h3>
-          <p>{subscription.payment_amount}</p>
-          <div>
-            <Link to={`/subscriptions/${subscription.id}/edit`}>Edit</Link>
-            <span onClick={() => this.deleteSubscription(subscription.id)}>Delete</span>
+          <p>$: {subscription.payment_amount}</p>
+          <p>{subscription.payment_date}</p>
+          <p>{subscription.category_name}</p>
+          <div className="edit-delete-container">
+              <Link to={`/subscriptions/${subscription.id}/edit`}>Edit</Link>
+              <span onClick={() => this.deleteSubscription(subscription.id)}>Delete</span>
           </div>
           <hr />
-        </div>
+          </div>
       );
-    });
+      });
   };
 
   render() {
@@ -112,4 +114,5 @@ class Subscriptions extends React.Component {
     
 }
 
-export default Subscriptions;
+
+export default Subscriptions
