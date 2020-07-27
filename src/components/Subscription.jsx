@@ -5,20 +5,47 @@ import { SubscriptionsContext } from "../context/subscriptions-context";
 import NoSubscriptions from "./NoSubscriptions";
 
 class Subscriptions extends React.Component {
+  constructor(props) {
+    super(props) 
+    this.textInput = React.createRef()
+  }
   static contextType = SubscriptionsContext;
-  state = { search: "", category: ""};
+  state = { search: "", name: false, category: false};
 
   onInputChange = (event) => {
     this.setState({
       search: event.target.value,
-      category: ""
+      name: true,
+      category: false
     })
   }
 
   onSelectCategory = (event) => {
+    this.textInput.current.value = ""
     this.setState({
-      search: "",
-      category: event.target.value
+      search: event.target.value,
+      name: false,
+      category: true
+    })
+    // window.location.reload(false)
+    // console.log(filteredSubscriptionsByCategory)
+    // console.log(this.renderSubscriptions(filteredSubscriptionsByCategory))
+  }
+
+  getUniqueCategories = (subscriptions) => {
+    let arr = []
+    subscriptions.map(subscription => {
+      return arr.push(subscription.category)
+    })
+    let categories = [...new Set(arr)]
+    return categories
+  }
+
+  renderCategories = (categories) => {
+    return categories.map((category, index) => {
+      return (
+        <option key={index} value={category}>{category.toLowerCase()}</option>
+      )
     })
   }
 
@@ -50,13 +77,17 @@ class Subscriptions extends React.Component {
 
   render() {
     const { subscriptions } = this.context;
-    console.log(subscriptions)
-    const filteredSubscriptionsByName = subscriptions.filter(subscription => {
-      return subscription.name.toLowerCase().includes(this.state.search)
+    console.log(this.state.search)
+    const categories = this.getUniqueCategories(subscriptions)
+    const filteredSubscriptions = subscriptions.filter(subscription => {
+      if (this.state.name) {
+        return subscription.name.toLowerCase().includes(this.state.search)
+      }
+      else {
+        return subscription.category.toLowerCase().includes(this.state.search) 
+      }
     })
-    // const filteredSubscriptionsByCategory = subscriptions.filter(subscription => {
-    //   return subscription.category_id.name.toLowerCase().includes
-    // })
+
     return (
       subscriptions.length === 0 ? (
       <NoSubscriptions />
@@ -66,16 +97,15 @@ class Subscriptions extends React.Component {
         <input 
           type="text" 
           name="search-bar"
-          id='search'
+          id="search"
           onChange={this.onInputChange}
+          ref={this.textInput}
         />
-        <label htmlFor="filter-by-category">Filter By:</label>
         <select onChange={this.onSelectCategory}>
-          <option value="category">Category</option>
-          <option value="entertainment">entertainment</option>
-          <option value="games">games</option>
+          <option value="">Category</option>
+          {this.renderCategories(categories)}
         </select>
-        {this.renderSubscriptions(filteredSubscriptionsByName)}
+        {this.renderSubscriptions(filteredSubscriptions)}
       </>
     )
     )}
