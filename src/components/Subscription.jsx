@@ -79,7 +79,8 @@ class Subscriptions extends React.Component {
 
   render() {
     const { subscriptions } = this.context;
-    console.log(this.state.search)
+    // console.log(subscriptions);
+    // console.log(this.state.search)
     const categories = this.getUniqueCategories(subscriptions)
     const filteredSubscriptions = subscriptions.filter(subscription => {
       if (this.state.name) {
