@@ -70,31 +70,50 @@ class EditSubscription extends React.Component {
     return (
       !loading && (
         <>
-          <h1>Edit the subscription</h1>
-          <form onSubmit={this.onFormSubmit}>
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              onChange={this.onInputChange}
-              value={name}
-            />
-            <label htmlFor="payment_amount">Payment Amount</label>
-            <input
-              type="text"
-              name="payment_amount"
-              id="payment_amount"
-              onChange={this.onInputChange}
-              value={payment_amount}
-            />
-            <label htmlFor="payment_date">Payment Date</label>
-            <DatePicker
-                selected={this.state.payment_date}
-                onChange={this.handleChange}
-                value={payment_date}
-            />
-            <input type="submit" value="Submit" />
+          <h1 className="text-2xl flex-1 text-gray-700 text-center px-4 py-2 m-2">Edit the subscription</h1>
+          <form className="w-full max-w-lg" onSubmit={this.onFormSubmit}>
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full px-3">
+                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2" for="name" htmlFor="name">Name</label>
+                <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="text"
+                  name="name"
+                  id="name"
+                  onChange={this.onInputChange}
+                  value={name}
+                />
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full px-3">  
+                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2 " for="category-name" htmlFor="category_name">Category:</label>
+                <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="category_name" id="category_name" onChange={this.onInputChange}/>
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full px-3">
+                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2" for="payment_amount" htmlFor="payment_amount">Payment Amount</label>
+                <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="text"
+                  name="payment_amount"
+                  id="payment_amount"
+                  onChange={this.onInputChange}
+                  value={payment_amount}
+                />
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full px-3">
+                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2 " for="payment-date" htmlFor="payment_date">Payment Date</label>
+                <DatePicker className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    selected={this.state.payment_date}
+                    onChange={this.handleChange}
+                    value={payment_date}
+                />
+              </div>
+            </div>
+                <input className="bg-white hover:bg-gray-100 text-gray font-semibold py-2 px-4 rounded shadow" type="button" value="CANCEL" onClick={()=> {this.props.history.go(-1)}} />
+                <input className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button-left" type="submit" value="Submit" />
           </form>
         </>
       )
