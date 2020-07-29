@@ -71,7 +71,7 @@ class EditSubscription extends React.Component {
   };
 
   render() {
-    const { name, payment_amount, payment_date, loading } = this.state;
+    const { name, payment_amount, loading } = this.state;
     return (
       !loading && (
         <>
@@ -111,9 +111,10 @@ class EditSubscription extends React.Component {
               <div className="w-full px-3">
                 <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2 " htmlFor="payment_date">Payment Date</label>
                 <DatePicker className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    selected={this.state.payment_date}
+                    // dateFormat="yyyy/MM/dd"
+                    selected={new Date(this.state.payment_date)}
                     onChange={this.handleChange}
-                    value={payment_date}
+                    // value={payment_date}
                 />
               </div>
             </div>
