@@ -21,6 +21,12 @@ class EditSubscription extends React.Component {
     });
   };
 
+  // handleSelectChange = (keywords) => {
+  //   this.setState({keywords})
+  //   console.log(`Option selected:`, keywords);
+  // }
+
+
   onFormSubmit = async (event) => {
     event.preventDefault();
     const { name, payment_amount, payment_date, created_at, user_id, category_id } = this.state;
@@ -49,16 +55,15 @@ class EditSubscription extends React.Component {
   };
 
   componentDidMount() {
+    console.log(this.context);
     const foundSubscription = this.context.subscriptions.find((subscription) => {
-      return subscription.id === this.state.id
+      return subscription.id === Number(this.state.id)
     })
+    console.log(foundSubscription);
     this.setState({ ...foundSubscription, loading: false });
-    console.log(this.props);
+    // console.log(this.props);
   }
 
-  state = {
-        payment_date: new Date()
-  };
   handleChange = date => {
         this.setState({
         payment_date: date
@@ -66,7 +71,7 @@ class EditSubscription extends React.Component {
   };
 
   render() {
-    const { name, payment_amount, payment_date, loading } = this.state;
+    const { name, payment_amount, loading } = this.state;
     return (
       !loading && (
         <>
@@ -74,7 +79,7 @@ class EditSubscription extends React.Component {
           <form className="w-full max-w-lg" onSubmit={this.onFormSubmit}>
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full px-3">
-                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2" for="name" htmlFor="name">Name</label>
+                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">Name</label>
                 <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="text"
                   name="name"
@@ -86,13 +91,13 @@ class EditSubscription extends React.Component {
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full px-3">  
-                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2 " for="category-name" htmlFor="category_name">Category:</label>
-                <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="category_name" id="category_name" onChange={this.onInputChange}/>
+                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2 " htmlFor="category_name">Category:</label>
+                <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="category_name" id="category_name" onChange={this.onInputChange} value={this.state.category}/>
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full px-3">
-                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2" for="payment_amount" htmlFor="payment_amount">Payment Amount</label>
+                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="payment_amount">Payment Amount</label>
                 <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="text"
                   name="payment_amount"
@@ -104,11 +109,12 @@ class EditSubscription extends React.Component {
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full px-3">
-                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2 " for="payment-date" htmlFor="payment_date">Payment Date</label>
+                <label className="text-xl block tracking-wide text-gray-700 text-xs font-bold mb-2 " htmlFor="payment_date">Payment Date</label>
                 <DatePicker className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    selected={this.state.payment_date}
+                    // dateFormat="yyyy/MM/dd"
+                    selected={new Date(this.state.payment_date)}
                     onChange={this.handleChange}
-                    value={payment_date}
+                    // value={payment_date}
                 />
               </div>
             </div>

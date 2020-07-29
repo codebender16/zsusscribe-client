@@ -62,17 +62,16 @@ class Subscriptions extends React.Component {
   renderSubscriptions = (subscriptions) => {
       return subscriptions.map((subscription, index) => {
       return (
-          <div key={index} className="subscription">
-          <h3>{subscription.name}</h3>
-          <p>$: {subscription.payment_amount}</p>
-          <p>{subscription.payment_date}</p>
-          <p>{subscription.category_name}</p>
-          <div className="edit-delete-container">
-              <Link to={`/subscriptions/${subscription.id}/edit`}>Edit</Link>
-              <span onClick={() => this.deleteSubscription(subscription.id)}>Delete</span>
-          </div>
-          <hr />
-          </div>
+              <div key={index} className="flex flex-row">
+                <div className="flex-none text-gray-700 text-center bg-gray-400 px-4 py-2 m-2">{subscription.name}</div>
+                <div className="flex-none text-gray-700 text-center bg-gray-400 px-4 py-2 m-2">$: {subscription.payment_amount}</div>
+                <div className="flex-none text-gray-700 text-center bg-gray-400 px-4 py-2 m-2">{subscription.payment_date}</div>
+                <p>{subscription.category_name}</p>
+                <div className="edit-delete-container inline-flex">
+                    <Link className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button" to={`/subscriptions/${subscription.id}/edit`}>Edit</Link>
+                    <span className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button" onClick={() => this.deleteSubscription(subscription.id)}>Delete</span>
+                </div>
+              </div>
       );
       });
   };
