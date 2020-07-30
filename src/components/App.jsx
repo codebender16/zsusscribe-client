@@ -21,7 +21,8 @@ class App extends React.Component {
       {/* {console.log(this.state)} */}
         <SubscriptionsContext.Provider value={this.state}>
         <Route component={NavBar} />
-          <div className="px-8 py-12 max-w-md mx-auto">
+          <div className="px-8 py-12 max-w-lg mx-auto"> 
+          {/* max-w-md  */}
             <Switch>
               <ProtectedRoute exact path="/subscriptions/:id/edit" component={EditSubscription} />
               <ProtectedRoute exact path="/subscriptions/create" component={CreateSubscription} />
