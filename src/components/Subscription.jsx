@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // import moment from 'moment'
 import { SubscriptionsContext } from "../context/subscriptions-context";
 import NoSubscriptions from "./NoSubscriptions";
+import SiteTemplate from "../template/SiteTemplate";
 
 class Subscriptions extends React.Component {
   constructor(props) {
@@ -115,21 +116,29 @@ class Subscriptions extends React.Component {
     return subscriptions.length === 0 ? (
       <NoSubscriptions />
     ) : (
-      <>
-        <label htmlFor="search-by-name">Search</label>
-        <input
-          type="text"
-          name="search-bar"
-          id="search"
-          onChange={this.onInputChange}
-          ref={this.textInput}
-        />
-        <select className="inline-flex justify-end rounded-md border border-gray-300 px-4 py-2 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150" onChange={this.onSelectCategory}>
-          <option value="">Category</option>
-          {this.renderCategories(categories)}
-        </select>
-        {this.renderSubscriptions(filteredSubscriptions)}
-      </>
+      <SiteTemplate>
+        <div className="mb-20">
+          <label className="text-lg" htmlFor="search-by-name">
+            Search{" "}
+          </label>
+          <input
+            className="shadow-inner pr-5 mr-5"
+            type="text"
+            name="search-bar"
+            id="search"
+            onChange={this.onInputChange}
+            ref={this.textInput}
+          />
+          <select
+            className="inline-flex justify-end rounded-md border border-gray-300 px-4 py-2 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-100"
+            onChange={this.onSelectCategory}
+          >
+            <option value="">Category</option>
+            {this.renderCategories(categories)}
+          </select>
+          {this.renderSubscriptions(filteredSubscriptions)}
+        </div>
+      </SiteTemplate>
     );
   }
 }
